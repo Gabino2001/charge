@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: charge
-    runtime: java
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/backend-0.1.0.jar
