@@ -1,0 +1,32 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: charge-backend
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/charge}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:changez-cette-cle-secrete-en-production-au-minimum-256-bits}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000} # 24h
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:4200}
+
+logging:
+  level:
+    com.charge.backend: INFO
