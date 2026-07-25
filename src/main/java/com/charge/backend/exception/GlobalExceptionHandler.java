@@ -63,13 +63,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
+        // TEMPORAIRE POUR DEBUG - à retirer avant mise en prod définitive
+        String debugMessage = ex.getClass().getSimpleName() + ": " + ex.getMessage();
+        Throwable cause = ex.getCause();
+        if (cause != null) {
+            debugMessage += " | Cause: " + cause.getClass().getSimpleName() + ": " + cause.getMessage();
+        }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse(
-                        500,
-                        "Internal Server Error",
-                        "Une erreur inattendue est survenue."
-                ));
+                .body(new ErrorResponse(500, "Internal Server Error", debugMessage));
     }
+
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponse> handleAuthentication(AuthenticationException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
