@@ -20,18 +20,6 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-  mail:
-    host: ${MAIL_HOST:smtp.gmail.com}
-    port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME:}
-    password: ${MAIL_PASSWORD:}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
 app:
   jwt:
     secret: ${JWT_SECRET:changez-cette-cle-secrete-en-production-au-minimum-256-bits}
@@ -40,7 +28,9 @@ app:
     allowed-origins: ${CORS_ORIGINS:http://localhost:4200}
   frontend-url: ${FRONTEND_URL:http://localhost:4200}
   mail:
+    brevo-api-key: ${BREVO_API_KEY:}
     from: ${MAIL_FROM:no-reply@charge-app.com}
+    from-name: ${MAIL_FROM_NAME:CHARGE.}
 
 logging:
   level:
