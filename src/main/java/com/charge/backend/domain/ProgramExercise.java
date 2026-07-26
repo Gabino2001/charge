@@ -26,6 +26,13 @@ public class ProgramExercise {
 
     private Integer sets;
     private String reps;
+
+    /** Tempo d'exécution au format 4 temps (ex. "3-1-1-0", "4-0-X-0"). */
+    private String tempo;
+
+    /** Charge de travail en kilogrammes (ex. 60.0 pour 60 kg). */
+    private Double loadKg;
+
     private String videoUrl;
 
     /** Temps de récupération (en secondes) après cet exercice précis, noté par le préparateur. */

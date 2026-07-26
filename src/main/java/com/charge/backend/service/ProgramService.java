@@ -59,6 +59,8 @@ public class ProgramService {
                         .title(exReq.title())
                         .sets(exReq.sets())
                         .reps(exReq.reps())
+                        .tempo(exReq.tempo())
+                        .loadKg(exReq.loadKg())
                         .videoUrl(exReq.videoUrl())
                         .recoveryTimeSeconds(exReq.recoveryTimeSeconds())
                         .percentRm(exReq.percentRm())
@@ -103,6 +105,8 @@ public class ProgramService {
                         .title(exReq.title())
                         .sets(exReq.sets())
                         .reps(exReq.reps())
+                        .tempo(exReq.tempo())
+                        .loadKg(exReq.loadKg())
                         .videoUrl(exReq.videoUrl())
                         .recoveryTimeSeconds(exReq.recoveryTimeSeconds())
                         .percentRm(exReq.percentRm())
@@ -168,6 +172,8 @@ public class ProgramService {
                             .title(pe.getTitle())
                             .sets(pe.getSets())
                             .reps(pe.getReps())
+                            .tempo(pe.getTempo())
+                            .loadKg(pe.getLoadKg())
                             .videoUrl(pe.getVideoUrl())
                             .recoveryTimeSeconds(pe.getRecoveryTimeSeconds())
                             .percentRm(pe.getPercentRm())
@@ -203,7 +209,7 @@ public class ProgramService {
                         b.getId(),
                         b.getRecoveryTimeSeconds(),
                         b.getExercises().stream()
-                                .map(e -> new ProgramExerciseResponse(e.getId(), e.getTitle(), e.getSets(), e.getReps(), e.getVideoUrl(), e.getRecoveryTimeSeconds(), e.getPercentRm()))
+                                .map(e -> new ProgramExerciseResponse(e.getId(), e.getTitle(), e.getSets(), e.getReps(), e.getTempo(), e.getLoadKg(), e.getVideoUrl(), e.getRecoveryTimeSeconds(), e.getPercentRm()))
                                 .toList()
                 ))
                 .toList();

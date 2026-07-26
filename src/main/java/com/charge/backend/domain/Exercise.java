@@ -27,6 +27,12 @@ public class Exercise {
     /** Chaîne libre pour rester flexible : "8", "45 s", "1"... */
     private String reps;
 
+    /** Tempo d'exécution au format 4 temps : excentrique-pause basse-concentrique-pause haute (ex. "3-1-1-0", "4-0-X-0"). */
+    private String tempo;
+
+    /** Charge de travail en kilogrammes, donnée par le préparateur (ex. 60.0 pour 60 kg). */
+    private Double loadKg;
+
     private String videoUrl;
 
     /** Temps de récupération (en secondes) après cet exercice précis, noté par le préparateur. */

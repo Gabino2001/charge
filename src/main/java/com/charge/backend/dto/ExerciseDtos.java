@@ -15,6 +15,10 @@ public class ExerciseDtos {
             @NotBlank String title,
             Integer sets,
             String reps,
+            /** Tempo d'exécution au format 4 temps (ex. "3-1-1-0", "4-0-X-0"). */
+            String tempo,
+            /** Charge de travail en kilogrammes (ex. 60.0 pour 60 kg). */
+            Double loadKg,
             String videoUrl,
             LocalDate scheduledFor,
             /** Temps de récupération (en secondes) après cet exercice, donné par le préparateur. */
@@ -33,6 +37,8 @@ public class ExerciseDtos {
             @NotBlank String title,
             Integer sets,
             String reps,
+            String tempo,
+            Double loadKg,
             String videoUrl,
             LocalDate scheduledFor,
             Integer recoveryTimeSeconds,
@@ -47,6 +53,8 @@ public class ExerciseDtos {
             String title,
             Integer sets,
             String reps,
+            String tempo,
+            Double loadKg,
             String videoUrl,
             LocalDate scheduledFor,
             boolean done,

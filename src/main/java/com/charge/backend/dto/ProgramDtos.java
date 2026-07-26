@@ -14,6 +14,10 @@ public class ProgramDtos {
             @NotBlank String title,
             Integer sets,
             String reps,
+            /** Tempo d'exécution au format 4 temps (ex. "3-1-1-0", "4-0-X-0"). */
+            String tempo,
+            /** Charge de travail en kilogrammes (ex. 60.0 pour 60 kg). */
+            Double loadKg,
             String videoUrl,
             /** Temps de récupération (en secondes) après cet exercice, donné par le préparateur (mode ATELIER surtout). */
             Integer recoveryTimeSeconds,
@@ -38,7 +42,7 @@ public class ProgramDtos {
     ) {}
 
     public record ProgramExerciseResponse(
-            Long id, String title, Integer sets, String reps, String videoUrl, Integer recoveryTimeSeconds, Integer percentRm
+            Long id, String title, Integer sets, String reps, String tempo, Double loadKg, String videoUrl, Integer recoveryTimeSeconds, Integer percentRm
     ) {}
 
     public record ProgramBlockResponse(

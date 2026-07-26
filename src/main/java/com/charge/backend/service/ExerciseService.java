@@ -48,6 +48,8 @@ public class ExerciseService {
                 .title(request.title())
                 .sets(request.sets())
                 .reps(request.reps())
+                .tempo(request.tempo())
+                .loadKg(request.loadKg())
                 .videoUrl(request.videoUrl())
                 .scheduledFor(request.scheduledFor())
                 .recoveryTimeSeconds(request.recoveryTimeSeconds())
@@ -161,6 +163,8 @@ public class ExerciseService {
         exercise.setTitle(request.title());
         exercise.setSets(request.sets());
         exercise.setReps(request.reps());
+        exercise.setTempo(request.tempo());
+        exercise.setLoadKg(request.loadKg());
         exercise.setVideoUrl(request.videoUrl());
         exercise.setRecoveryTimeSeconds(request.recoveryTimeSeconds());
         exercise.setSessionType(request.sessionType());
@@ -183,7 +187,7 @@ public class ExerciseService {
 
     private ExerciseResponse toResponse(Exercise e) {
         return new ExerciseResponse(
-                e.getId(), e.getTitle(), e.getSets(), e.getReps(), e.getVideoUrl(), e.getScheduledFor(),
+                e.getId(), e.getTitle(), e.getSets(), e.getReps(), e.getTempo(), e.getLoadKg(), e.getVideoUrl(), e.getScheduledFor(),
                 e.isDone(), e.getPlayer().getId(), e.getCreatedAt(), e.getCompletedAt(),
                 e.getRecoveryTimeSeconds(), e.getSessionType(), e.getBlockIndex(), e.getBlockRecoveryTimeSeconds(),
                 e.getExerciseRpe(), e.getSessionId(), e.getSessionNumber(), e.getPercentRm(),
