@@ -45,6 +45,14 @@ public class User {
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
+    /** Jeton temporaire pour la réinitialisation de mot de passe (null si aucune demande en cours). */
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    /** Date d'expiration du jeton de réinitialisation. */
+    @Column(name = "reset_token_expiry")
+    private Instant resetTokenExpiry;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = Instant.now();
