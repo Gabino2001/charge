@@ -58,4 +58,11 @@ public class TrainingSessionController {
     public com.charge.backend.dto.TrainingSessionDtos.AcwrResponse acwr(@PathVariable Long playerId) {
         return trainingSessionService.acwrForPlayer(CurrentUser.id(), playerId);
     }
+
+    /** Courbe d'évolution du ratio ACWR sur les 60 derniers jours (pour visualiser la tendance de charge). */
+    @GetMapping("/api/players/{playerId}/acwr/history")
+    @PreAuthorize("hasRole('COACH')")
+    public List<com.charge.backend.dto.TrainingSessionDtos.AcwrHistoryPoint> acwrHistory(@PathVariable Long playerId) {
+        return trainingSessionService.acwrHistoryForPlayer(CurrentUser.id(), playerId);
+    }
 }

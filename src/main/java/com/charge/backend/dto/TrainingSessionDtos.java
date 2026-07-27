@@ -35,4 +35,11 @@ public class TrainingSessionDtos {
             Double ratio,
             String zone
     ) {}
+
+    /** Un point de la courbe d'évolution de l'ACWR (un ratio calculé pour un jour donné). */
+    public record AcwrHistoryPoint(
+            LocalDate date,
+            Double ratio,
+            String zone
+    ) {}
 }

@@ -50,6 +50,48 @@ public final class AcwrCalculator {
         return new AcwrResponse(acuteAvg, chronicAvg, ratio, zone);
     }
 
+    /**
+     * Calcule l'évolution du ratio ACWR jour par jour sur les `daysToShow` derniers jours,
+     * pour tracer une courbe. Chaque point recalcule sa propre fenêtre aiguë (7j) et
+     * chronique (28j) se terminant à ce jour-là — nécessite donc un historique de sessions
+     * remontant à `daysToShow + 27` jours avant aujourd'hui.
+     */
+    public static List<com.charge.backend.dto.TrainingSessionDtos.AcwrHistoryPoint> computeHistory(
+            List<TrainingSession> sessions, int daysToShow) {
+        LocalDate today = LocalDate.now();
+
+        Map<LocalDate, Integer> loadByDate = new HashMap<>();
+        for (TrainingSession s : sessions) {
+            Integer load = s.getTrainingLoad();
+            if (load == null) continue;
+            loadByDate.merge(s.getSessionDate(), load, Integer::sum);
+        }
+
+        List<com.charge.backend.dto.TrainingSessionDtos.AcwrHistoryPoint> points = new java.util.ArrayList<>();
+        for (int d = daysToShow - 1; d >= 0; d--) {
+            LocalDate day = today.minusDays(d);
+
+            double acuteSum = 0;
+            boolean hasAcuteData = false;
+            for (int i = 0; i < 7; i++) {
+                LocalDate date = day.minusDays(i);
+                if (loadByDate.containsKey(date)) hasAcuteData = true;
+                acuteSum += loadByDate.getOrDefault(date, 0);
+            }
+            double chronicSum = 0;
+            for (int i = 0; i < 28; i++) {
+                chronicSum += loadByDate.getOrDefault(day.minusDays(i), 0);
+            }
+
+            double acuteAvg = round1(acuteSum / 7.0);
+            double chronicAvg = round1(chronicSum / 28.0);
+            Double ratio = (hasAcuteData && chronicAvg > 0) ? round1(acuteAvg / chronicAvg) : null;
+
+            points.add(new com.charge.backend.dto.TrainingSessionDtos.AcwrHistoryPoint(day, ratio, zoneFor(ratio)));
+        }
+        return points;
+    }
+
     private static String zoneFor(Double ratio) {
         if (ratio == null) return "INSUFFICIENT_DATA";
         if (ratio < 0.8) return "LOW";

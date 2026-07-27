@@ -78,6 +78,17 @@ public class TrainingSessionService {
         return AcwrCalculator.compute(recent);
     }
 
+    /** Courbe d'évolution du ratio ACWR sur les 60 derniers jours, pour visualiser la tendance de charge du joueur. */
+    public List<com.charge.backend.dto.TrainingSessionDtos.AcwrHistoryPoint> acwrHistoryForPlayer(Long coachId, Long playerId) {
+        playerService.getPlayerOwnedByCoach(coachId, playerId);
+        int daysToShow = 60;
+        // Il faut l'historique de charge sur daysToShow + 27 jours pour pouvoir calculer
+        // la fenêtre chronique (28j) du tout premier point affiché.
+        List<TrainingSession> sessions = trainingSessionRepository
+                .findByPlayerIdAndSessionDateGreaterThanEqual(playerId, LocalDate.now().minusDays(daysToShow + 27));
+        return AcwrCalculator.computeHistory(sessions, daysToShow);
+    }
+
     @Transactional
     public SessionResponse submitRpe(Long playerId, Long sessionId, SubmitSessionRpeRequest request) {
         TrainingSession session = getOwned(playerId, sessionId);
